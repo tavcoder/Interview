@@ -1,20 +1,38 @@
-1. ¿Qué es un closure?
+Aquí tienes tu contenido reformateado y listo para impresión, con títulos, viñetas y tablas alineadas de forma clara:
 
-Un closure es una función que “recuerda” el alcance léxico en el que fue creada,
-incluso después de que ese contexto haya terminado de ejecutarse. Una closure es la combinación de una función con el entorno lexico en el cual se declara dicha función. La palabra lexico hace referencia al hecho de que el contexto lexico referencia donde se declara una variable dentro del código para determinar que parte del código puede acceder a dicha variable. Una closure es una función que tiene acceso a las variables declaradas en el contexto externo aún cuando la función externa ya haya finalizado su ejecución.
-Porque utilizaría una?
-Emular metodos privados con closures. Comunmente usada en el patron modulo.
+---
 
-2. Promises
-Un Promise es un objeto que representa la eventual finalización (o falla) de una operación asíncrona y su valor resultante.
-Estados de un promise:
-pending (pendiente)
-fulfilled (resuelta)
-rejected (rechazada)
-Permite encadenar múltiples operaciones con .then() y manejar errores con .catch().
+# 1. ¿Qué es un closure?
 
-4. Diferencia entre Promise y Callback
-   
+Un **closure** es una función que “recuerda” el alcance léxico en el que fue creada, incluso después de que ese contexto haya terminado de ejecutarse.
+
+Una closure es la combinación de una función con el **entorno léxico** en el cual se declara dicha función. La palabra *léxico* hace referencia al hecho de que el contexto léxico determina dónde se declara una variable dentro del código y qué parte del código puede acceder a ella.
+
+Una closure tiene acceso a las variables declaradas en el contexto externo, incluso cuando la función externa ya ha finalizado su ejecución.
+
+**¿Por qué utilizaría una?**
+
+* Emular métodos privados con closures.
+* Comúnmente usada en el patrón **módulo**.
+
+---
+
+# 2. Promises
+
+Un **Promise** es un objeto que representa la eventual finalización (o falla) de una operación asíncrona y su valor resultante.
+
+**Estados de un promise:**
+
+* **pending** (pendiente)
+* **fulfilled** (resuelta)
+* **rejected** (rechazada)
+
+Permite encadenar múltiples operaciones con `.then()` y manejar errores con `.catch()`.
+
+---
+
+# 3. Diferencia entre Promise y Callback
+
 | Característica    | Callback                               | Promise                            |
 | ----------------- | -------------------------------------- | ---------------------------------- |
 | Encadenamiento    | Difícil, puede generar “callback hell” | Fácil con `.then()`                |
@@ -22,17 +40,24 @@ Permite encadenar múltiples operaciones con .then() y manejar errores con .catc
 | Valor resultante  | Pasado a la función callback           | Resuelto con `resolve`             |
 | Estado            | No hay estado definido                 | `pending`, `fulfilled`, `rejected` |
 
-Explique la delegación de eventos
+---
 
-| Concepto                  | Descripción                 | Beneficios      
-| Función                                                 | Propósito | Cómo funciona             | Ejemplo de uso                | Se detiene con  
-| **`setTimeout(fn, delay)`**                                   | Ejecutar una función **una vez** después de un tiempo específico.                         | Llama a `fn` después de `delay` ms.                                                                                            | `js setTimeout(() => { console.log('Hola después de 2s'); }, 2000); `                                                                                               | `clearTimeout(id)`                                           |
-| **`setInterval(fn, delay)`**                                  | Ejecutar una función **repetidamente** cada intervalo de tiempo.                          | Llama a `fn` cada `delay` ms hasta que se detenga.                                                                             | `js const id = setInterval(() => { console.log('Esto se repite cada 1s'); }, 1000); `                                                                               | `clearInterval(id)`                                          |
-| **`debounce(fn, delay)`** *(no nativo, se implementa con JS)* | Ejecutar una función **una sola vez** después de que deje de activarse por cierto tiempo. | Reinicia el temporizador cada vez que el evento se dispara. `fn` solo se ejecuta cuando ha pasado `delay` ms sin más disparos. | `js const input = document.querySelector('input'); const debounced = debounce(() => { console.log('Buscar'); }, 300); input.addEventListener('input', debounced); ` | Cancelando el timeout interno                                |
-| **`throttle(fn, delay)`** *(no nativo, se implementa con JS)* | Limitar la ejecución de una función a **una vez cada intervalo de tiempo**.               | Garantiza que `fn` se ejecute como máximo una vez cada `delay` ms, aunque el evento se dispare muchas veces.                   | `js window.addEventListener('scroll', throttle(() => { console.log('Scroll limitado a 200ms'); }, 200)); `                                            | Dependiendo de la implementación, limpiar el timeout interno |
+# 4. Delegación de eventos
 
-1. CSS Box Model
+| Función / Concepto           | Propósito                                                        | Cómo funciona                                                                                                | Ejemplo de uso                                                                                                                                                  | Se detiene con                   |
+| ---------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| **`setTimeout(fn, delay)`**  | Ejecutar una función **una vez** después de un tiempo específico | Llama a `fn` después de `delay` ms                                                                           | `setTimeout(() => { console.log('Hola después de 2s'); }, 2000);`                                                                                               | `clearTimeout(id)`               |
+| **`setInterval(fn, delay)`** | Ejecutar una función **repetidamente** cada intervalo de tiempo  | Llama a `fn` cada `delay` ms hasta que se detenga                                                            | `const id = setInterval(() => { console.log('Esto se repite cada 1s'); }, 1000);`                                                                               | `clearInterval(id)`              |
+| **`debounce(fn, delay)`**    | Ejecutar una función **una sola vez** después de cierto tiempo   | Reinicia el temporizador cada vez que el evento se dispara. `fn` solo se ejecuta cuando ha pasado `delay` ms | `const input = document.querySelector('input'); const debounced = debounce(() => { console.log('Buscar'); }, 300); input.addEventListener('input', debounced);` | Cancelando el timeout interno    |
+| **`throttle(fn, delay)`**    | Limitar la ejecución de una función a **una vez cada intervalo** | Garantiza que `fn` se ejecute como máximo una vez cada `delay` ms, aunque el evento se dispare muchas veces  | `window.addEventListener('scroll', throttle(() => { console.log('Scroll limitado a 200ms'); }, 200));`                                                          | Dependiendo de la implementación |
+
+---
+
+# 5. CSS Box Model
+
 Cada elemento HTML se compone de cuatro capas:
+
+```
 +-------------------------+
 |       Margin            | <- espacio fuera del borde
 +-------------------------+
@@ -42,8 +67,13 @@ Cada elemento HTML se compone de cuatro capas:
 +-------------------------+
 |       Content           | <- contenido real (texto, imagen, etc.)
 +-------------------------+
-width y height afectan solo el content por defecto.
-Para incluir padding y border dentro del ancho total: box-sizing: border-box;
+```
+
+* `width` y `height` afectan solo el **content** por defecto.
+* Para incluir **padding** y **border** dentro del ancho total:
+box-sizing: border-box;
+
+
 
 3. CSS Position
 Propiedades de posición y diferencias:
