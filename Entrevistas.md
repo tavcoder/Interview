@@ -3,7 +3,6 @@
 Un closure es una función que “recuerda” el alcance léxico en el que fue creada,
 incluso después de que ese contexto haya terminado de ejecutarse. Una closure es la combinación de una función con el entorno lexico en el cual se declara dicha función. La palabra lexico hace referencia al hecho de que el contexto lexico referencia donde se declara una variable dentro del código para determinar que parte del código puede acceder a dicha variable. Una closure es una función que tiene acceso a las variables declaradas en el contexto externo aún cuando la función externa ya haya finalizado su ejecución.
 Porque utilizaría una?
-
 Emular metodos privados con closures. Comunmente usada en el patron modulo.
 2. Promises
 Un Promise es un objeto que representa la eventual finalización (o falla) de una operación asíncrona y su valor resultante.
@@ -28,7 +27,6 @@ Explique la delegación de eventos
 | **`throttle(fn, delay)`** *(no nativo, se implementa con JS)* | Limitar la ejecución de una función a **una vez cada intervalo de tiempo**.               | Garantiza que `fn` se ejecute como máximo una vez cada `delay` ms, aunque el evento se dispare muchas veces.                   | `js window.addEventListener('scroll', throttle(() => { console.log('Scroll limitado a 200ms'); }, 200)); `                                            | Dependiendo de la implementación, limpiar el timeout interno |
 
 1. CSS Box Model
-
 Cada elemento HTML se compone de cuatro capas:
 +-------------------------+
 |       Margin            | <- espacio fuera del borde
@@ -41,7 +39,8 @@ Cada elemento HTML se compone de cuatro capas:
 +-------------------------+
 width y height afectan solo el content por defecto.
 Para incluir padding y border dentro del ancho total: box-sizing: border-box;
-2. CSS Position
+
+3. CSS Position
 Propiedades de posición y diferencias:
 | Position   | Descripción                                                                                     |
 | ---------- | ----------------------------------------------------------------------------------------------- |
