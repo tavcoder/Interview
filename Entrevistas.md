@@ -4,6 +4,7 @@ Un closure es una función que “recuerda” el alcance léxico en el que fue c
 incluso después de que ese contexto haya terminado de ejecutarse. Una closure es la combinación de una función con el entorno lexico en el cual se declara dicha función. La palabra lexico hace referencia al hecho de que el contexto lexico referencia donde se declara una variable dentro del código para determinar que parte del código puede acceder a dicha variable. Una closure es una función que tiene acceso a las variables declaradas en el contexto externo aún cuando la función externa ya haya finalizado su ejecución.
 Porque utilizaría una?
 Emular metodos privados con closures. Comunmente usada en el patron modulo.
+
 2. Promises
 Un Promise es un objeto que representa la eventual finalización (o falla) de una operación asíncrona y su valor resultante.
 Estados de un promise:
@@ -11,14 +12,18 @@ pending (pendiente)
 fulfilled (resuelta)
 rejected (rechazada)
 Permite encadenar múltiples operaciones con .then() y manejar errores con .catch().
-3. Diferencia entre Promise y Callback
+
+4. Diferencia entre Promise y Callback
+   
 | Característica    | Callback                               | Promise                            |
 | ----------------- | -------------------------------------- | ---------------------------------- |
 | Encadenamiento    | Difícil, puede generar “callback hell” | Fácil con `.then()`                |
 | Manejo de errores | Cada callback maneja su error          | `.catch()` centralizado            |
 | Valor resultante  | Pasado a la función callback           | Resuelto con `resolve`             |
 | Estado            | No hay estado definido                 | `pending`, `fulfilled`, `rejected` |
+
 Explique la delegación de eventos
+
 | Concepto                  | Descripción                 | Beneficios      
 | Función                                                 | Propósito | Cómo funciona             | Ejemplo de uso                | Se detiene con  
 | **`setTimeout(fn, delay)`**                                   | Ejecutar una función **una vez** después de un tiempo específico.                         | Llama a `fn` después de `delay` ms.                                                                                            | `js setTimeout(() => { console.log('Hola después de 2s'); }, 2000); `                                                                                               | `clearTimeout(id)`                                           |
