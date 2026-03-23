@@ -1,0 +1,60 @@
+Entiendo que es una posición junior. Por el rango de mercado que he investigado y el valor que puedo aportar desde día 1 con mi background en diseño y sistemas,
+esperaba un rango más cercano a [+3-4k de lo que ofrecen], es posible una revisión de salario dentro de 6 meses?
+
+RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
+PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
+RONDA 0: Aplicación
+
+Envías CV + portfolio
+Recruiter/HR filtra (5-10 min por candidato)
+Tasa de paso: 10-20% si tu portfolio es sólido
+
+RONDA 1: Screening call (20-30 min)
+
+Con recruiter o tech lead
+Validar que no eres chatbot
+Preguntas básicas: experiencia, por qué front-end, disponibilidad, expectativas salariales
+Tasa de paso: 60-70% si llegas aquí
+
+RONDA 2: Entrevista técnica (45-90 min)
+
+Con tech lead o senior developer
+Formato más común:
+
+15 min: Hablar de tus proyectos
+30 min: Live coding o debugging
+15 min: Preguntas conceptuales (React, JS, CSS)
+10 min: Tus preguntas
+
+**1. Glassdoor — Interview experiences**
+- glassdoor.com
+- Busca la empresa específica → pestaña "Interviews"
+- Lee experiencias reales de candidatos
+- Filtrar por "Front End Developer" o "Junior Developer"
+- **Útil para:** Saber QUÉ preguntan en empresas específicas antes de aplicar
+
+**Ejemplo de búsqueda:**
+```
+"Typeform front-end developer interview"
+"Factorial junior developer interview questions"
+```
+**3. Reddit — r/cscareerquestionsEU**
+- reddit.com/r/cscareerquestionsEU
+- Threads de "interview experiences" para Europa
+- Busca: "junior front-end interview Spain" o "Barcelona startup interview"
+- **Útil para:** Experiencias reales, menos filtradas que Glassdoor
+**GreatFrontEnd** (greatfrontend.com)
+- Preguntas de entrevista front-end reales
+- Dividido por empresa
+- **Útil para:** Preparación específica para front-end (mejor que LeetCode para tu caso)
+
+**React Interview Questions** (github)
+- github.com/sudheerj/reactjs-interview-questions
+- 500+ preguntas reales de entrevistas React
+- **Útil para:** Preparar las preguntas conceptuales
+
+**4. Blind (app)**
+- teamblind.com
+- Profesionales tech comparten anónimamente
+- Busca por empresa
+- **Útil para:** Info no oficial, cultura real de empresa
