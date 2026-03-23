@@ -1,6 +1,10 @@
 Entiendo que es una posición junior. Por el rango de mercado que he investigado y el valor que puedo aportar desde día 1 con mi background en diseño y sistemas,
 esperaba un rango más cercano a [+3-4k de lo que ofrecen], es posible una revisión de salario dentro de 6 meses?
 
+ "¿por qué no pones la clase en #root?", responde:
+"Prefiero mantener index.html como el ancla estática de Vite y manejar todo el styling dentro de React. Así el componente App es autónomo, testeable, y si 
+necesitamos Server-Side Rendering más adelante, la estructura ya está preparada."
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
