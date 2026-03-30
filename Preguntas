@@ -8,6 +8,9 @@ necesitamos Server-Side Rendering más adelante, la estructura ya está preparad
 "Uso CSS global con BEM y design tokens porque me permite control total de la arquitectura y es lo que he usado en proyectos personales. Sé que CSS Modules y Tailwind
 son estándar en producción, y mi curva de aprendizaje sería de 1-2 semanas porque ya entiendo los principios: scope, especificidad, y sistemas de diseño."
 
+"Hago commits atómicos con conventional commits. Prefiero muchos commits pequeños con mensajes descriptivos que un 'commit monolítico'. Esto permite revertir cambios 
+específicos sin afectar otras features, y facilita el code review."
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
