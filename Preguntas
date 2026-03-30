@@ -11,6 +11,10 @@ son estándar en producción, y mi curva de aprendizaje sería de 1-2 semanas po
 "Hago commits atómicos con conventional commits. Prefiero muchos commits pequeños con mensajes descriptivos que un 'commit monolítico'. Esto permite revertir cambios 
 específicos sin afectar otras features, y facilita el code review."
 
+"Prioricé el feed social y las interacciones públicas (likes, comments, follows) porque es el core del producto. El chat añade complejidad de backend significativa
+— WebSocket, estado de mensajes, historial — que no aporta valor diferenciador para demostrar mis skills de frontend. Es una feature escalable que se puede añadir 
+con la arquitectura de componentes que construí."
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
