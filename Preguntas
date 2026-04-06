@@ -15,6 +15,9 @@ específicos sin afectar otras features, y facilita el code review."
 — WebSocket, estado de mensajes, historial — que no aporta valor diferenciador para demostrar mis skills de frontend. Es una feature escalable que se puede añadir 
 con la arquitectura de componentes que construí."
 
+"Organizo componentes siguiendo Atomic Design: átomos indivisibles, moléculas que los combinan, organismos que forman secciones. Esto mantiene consistencia y facilita
+reuso. Para este challenge uso 3 niveles, pero la metodología escala a sistemas completos."
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
