@@ -18,6 +18,12 @@ con la arquitectura de componentes que construí."
 "Organizo componentes siguiendo Atomic Design: átomos indivisibles, moléculas que los combinan, organismos que forman secciones. Esto mantiene consistencia y facilita
 reuso. Para este challenge uso 3 niveles, pero la metodología escala a sistemas completos."
 
+"¿Qué es IntersectionObserver y para qué lo usarías?"
+"Es una API del navegador que observa cuándo un elemento entra o sale del viewport, sin necesitar el evento scroll. Lo usaría para infinite scroll, lazy loading de
+imágenes, o activar animaciones cuando un elemento es visible." El evento scroll dispara cientos de veces por segundo y requiere cálculos de posición manuales. 
+IO es asíncrono y el navegador lo optimiza solo.
+
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
