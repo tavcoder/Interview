@@ -23,6 +23,10 @@ reuso. Para este challenge uso 3 niveles, pero la metodología escala a sistemas
 imágenes, o activar animaciones cuando un elemento es visible." El evento scroll dispara cientos de veces por segundo y requiere cálculos de posición manuales. 
 IO es asíncrono y el navegador lo optimiza solo.
 
+"¿Por qué usas replace en Navigate?" → Para no romper el historial del navegador.
+"¿Qué pasa si isLoading nunca se vuelve false?" → El usuario ve un spinner infinito. Por eso en producción añades un timeout o un estado de error en el contexto.
+"¿Cómo proteges rutas que dependen de roles, no solo de auth?" → Extiende PrivateRoute con una prop requiredRole:
+
 
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
