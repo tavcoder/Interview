@@ -26,7 +26,8 @@ IO es asíncrono y el navegador lo optimiza solo.
 "¿Por qué usas replace en Navigate?" → Para no romper el historial del navegador.
 "¿Qué pasa si isLoading nunca se vuelve false?" → El usuario ve un spinner infinito. Por eso en producción añades un timeout o un estado de error en el contexto.
 "¿Cómo proteges rutas que dependen de roles, no solo de auth?" → Extiende PrivateRoute con una prop requiredRole:
-
+ "¿cómo organizas la lógica en componentes que dependen de contexto global?", poder decir "extraigo un hook intermedio que adapta el contexto a la interfaz del 
+componente"
 
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
