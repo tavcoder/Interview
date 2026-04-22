@@ -29,6 +29,12 @@ IO es asíncrono y el navegador lo optimiza solo.
  "¿cómo organizas la lógica en componentes que dependen de contexto global?", poder decir "extraigo un hook intermedio que adapta el contexto a la interfaz del 
 componente"
 
+Para tabs de feed usa search params — es el patrón correcto
+porque las tabs son estado de UI, no recursos distintos.
+Path params son para recursos (/users/123, /posts/456). Esta
+distinción la preguntan en entrevistas: "¿cuándo usarías query
+params vs path params?"
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
