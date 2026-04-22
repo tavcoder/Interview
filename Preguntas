@@ -35,6 +35,13 @@ Path params son para recursos (/users/123, /posts/456). Esta
 distinción la preguntan en entrevistas: "¿cuándo usarías query
 params vs path params?"
 
+"¿Cómo harías este dropdown reutilizable?"
+
+"Primero extraería la lógica de dismiss a un custom hook useDismissible — eso ya es reutilizable sin over-engineering. Para el componente visual, empezaría con 
+AvatarMenu específico. Si aparece un segundo dropdown en la app, entonces abstraería un componente Dropdown genérico con compound components. No antes — YAGNI."
+
+YAGNI — You Aren't Gonna Need It
+
 RONDAS DE ENTREVISTA — PROCESO TÍPICO JUNIOR FRONT-END
 PROCESO ESTÁNDAR (startups 20-100 personas en España/UE):
 RONDA 0: Aplicación
