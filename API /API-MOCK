@@ -1,0 +1,333 @@
+Capa 1: api client
+apiHelper central con:
+get
+callApi
+uploadFile
+
+Y que ese helper gestione:
+
+token,
+headers,
+errores,
+mocks,
+subida de archivos.
+
+sabe:
+
+si está en mock o real,
+cómo hacer GET/POST/PUT/DELETE,
+cómo subir archivos,
+cómo adjuntar token
+
+En TanStack Query (React Query), el punto clave es este:
+
+La “fuente de verdad” de los datos es el caché.
+Tu UI no “vive” del backend directamente, sino del caché que TanStack Query mantiene.
+Invalidar = decirle a TanStack Query:
+
+“Esto ya no es fiable, vuelve a pedirlo al servidor”
+Esto hace:
+
+1-Marca el caché de posts como obsoleto
+2-React Query vuelve a hacer el GET /posts
+3-La UI se actualiza sola
+
+| Operación          | Qué invalida/actualiza                             | Por qué                             |
+| ------------------ | -------------------------------------------------- | ----------------------------------- |
+| **Like post**      | `['posts', postId]` + `['posts']`                  | El contador y el estado cambian     |
+| **Create post**    | `['posts']` (lista)                                | Aparece nuevo post arriba           |
+| **Comment**        | `['posts', postId, 'comments']`                    | Nuevo comentario en lista           |
+| **Follow user**    | `['users', userId]` + `['users', 'me']`            | Cambia botón "Seguir" → "Siguiendo" |
+| **Update profile** | `['users', 'me']` + `['posts']` (si cambia avatar) | Nuevo nombre/avatar en todo         |
+| **Upload avatar**  | `['users', 'me']`                                  | Nueva imagen en header              |
+| **Delete post**    | `['posts']` + `['users', 'me', 'posts']`           | Desaparece del feed                 |
+
+¡Alex aquí! 👋
+
+Estas 5 preguntas son **el checklist que separa a quien copia tutoriales de quien piensa como engineer**. Te las hago en cada entrevista técnica. Vamos una por una, aplicadas a TU app social.
+
+---
+
+## 1️⃣ MODELO DE DATOS DE UI
+
+No es "lo que devuelve la API". Es **lo que TU componente necesita pintar**.
+
+```javascript
+// ━━━ POST (lo que necesita el Feed y el PostCard) ━━━
+
+const postUIModel = {
+  // Identidad
+  id: "post_1",                    // obligatorio: key de React
+  
+  // Autor (denormalizado para evitar joins en UI)
+  author: {
+    id: "ver_c",                   // obligatorio
+    name: "Fernan Herrs",          // obligatorio: "Fernan H." en mobile
+    nick: "Fifa12",                // opcional: fallback si no hay nombre
+    avatarUrl: null,               // opcional: placeholder si null
+    isOnline: false,               // obligatorio: punto verde/gris
+    hasStory: true,                // obligatorio: anillo de color
+  },
+  
+  // Contenido
+  content: "It's okay baby girl...", // opcional: puede ser string vacío
+  images: ["/img/lavander.png"],     // opcional: array vacío = solo texto
+  
+  // Interacciones (siempre números, nunca undefined)
+  stats: {
+    likesCount: 2400,              // obligatorio: 0 si no hay
+    commentsCount: 89,             // obligatorio
+    sharesCount: 156,              // obligatorio
+  },
+  
+  // Estado del usuario actual respecto a este post
+  userInteraction: {
+    isLiked: true,                 // obligatorio: false por defecto
+    isBookmarked: true,            // obligatorio
+  },
+  
+  // Metadata
+  createdAt: "2024-08-14T14:15:00Z", // obligatorio: "hace 2h" | "14 ago"
+};
+```
+
+```javascript
+// ━━━ USER (lo que necesita el Profile y el Search) ━━━
+
+const userUIModel = {
+  id: "erch",
+  
+  // Identidad pública
+  displayName: "Vera Cherry",      // obligatorio: "Vera C." en listas
+  nick: "Cherry92",                // obligatorio: @Cherry92
+  
+  // Avatar (con estados)
+  avatar: {
+    url: null,                     // opcional
+    hasStory: true,                // obligatorio
+    isUnseen: false,               // obligatorio: story vista o no
+  },
+  
+  // Estado de relación (desde perspectiva del usuario logueado)
+  relationship: {
+    isFollowing: true,             // obligatorio
+    isFollower: true,              // obligatorio: "te sigue" badge
+    isCurrentUser: false,          // obligatorio: ocultar "Seguir" si true
+  },
+  
+  // Actividad
+  presence: {
+    isOnline: true,                // obligatorio
+    lastSeen: null,                // opcional: "hace 5m" si offline
+  },
+  
+  // Stats (para perfil)
+  counts: {
+    posts: 47,                     // obligatorio
+    followers: 1280,               // obligatorio
+    following: 340,                // obligatorio
+  },
+  
+  // Detalles de perfil (opcional, solo en vista detalle)
+  details: {
+    education: "Bachelor of Software Eng",  // opcional
+    drink: "Sometimes",                      // opcional
+    languages: "Russian",                    // opcional
+    marijuana: "No",                         // opcional
+  },
+};
+```
+
+**🔑 Regla de oro:** Todos los campos "obligatorios" existen SIEMPRE, aunque sea con valor por defecto (`0`, `false`, `""`, `[]`). Nunca un componente debe hacer `if (post.stats)` — siempre `post.stats.likesCount`.
+
+---
+
+## 2️⃣ DATOS OBLIGATORIOS vs OPCIONALES
+
+| Campo | Obligatorio | ¿Por qué? | Default si falta |
+|---|---|---|---|
+| `post.id` | ✅ | Key de React | — (no renderizar) |
+| `post.author.id` | ✅ | Navegar a perfil | — (no renderizar) |
+| `post.author.name` | ✅ | Siempre hay algo que mostrar | `"Usuario"` |
+| `post.content` | ✅ | String vacío es válido | `""` |
+| `post.images` | ✅ | Array vacío = post de texto | `[]` |
+| `post.stats.*` | ✅ | Siempre números | `0` |
+| `post.userInteraction.*` | ✅ | Booleanos | `false` |
+| `post.createdAt` | ✅ | Ordenar y formatear | `new Date().toISOString()` |
+| `author.nick` | ⚪ | Fallback de nombre | `author.name` |
+| `author.avatarUrl` | ⚪ | Placeholder genérico | `null` |
+| `user.details.*` | ⚪ | Solo en perfil completo | `null` |
+
+---
+
+## 3️⃣ ENDPOINTS A SIMULAR CON MOCKS
+
+Basado en tu challenge, estos son los que necesitas:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  AUTH (sin token)                                           │
+├─────────────────────────────────────────────────────────────┤
+│  POST /register        → {token, user}                      │
+│  POST /login           → {token, user}                      │
+├─────────────────────────────────────────────────────────────┤
+│  USER (con token)                                           │
+├─────────────────────────────────────────────────────────────┤
+│  GET  /users/me        → user completo                      │
+│  PUT  /users/me        → user actualizado                   │
+│  POST /users/me/avatar → {url}                              │
+│  GET  /users           → {users[], total, page}             │
+│  GET  /users/:id       → user público                       │
+│  GET  /users/search?q= → {users[]}                          │
+├─────────────────────────────────────────────────────────────┤
+│  POSTS (con token)                                          │
+├─────────────────────────────────────────────────────────────┤
+│  GET  /posts           → {posts[], total, page}             │
+│  GET  /posts/:id       → post completo                      │
+│  POST /posts           → post creado                        │
+│  POST /posts/:id/like  → {isLiked, likesCount}              │
+│  DEL  /posts/:id/like  → {isLiked, likesCount}              │
+│  POST /posts/:id/image → {url}                              │
+├─────────────────────────────────────────────────────────────┤
+│  COMMENTS (con token)                                       │
+├─────────────────────────────────────────────────────────────┤
+│  GET  /posts/:id/comments → {comments[], total}             │
+│  POST /posts/:id/comments → comment creado                  │
+├─────────────────────────────────────────────────────────────┤
+│  FOLLOWS (con token)                                        │
+├─────────────────────────────────────────────────────────────┤
+│  POST /follow/:id      → {isFollowing}                      │
+│  DEL  /follow/:id      → {isFollowing}                      │
+│  GET  /follow/:id      → {followers[], following[]}         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Total: 17 endpoints.** Todos deben estar en tu `mockRouter` antes de tocar un componente.
+
+---
+
+## 4️⃣ ESTADOS DE UI A CUBRIR
+
+Cada pantalla/componente debe manejar estos 4 estados. **Si falta uno, tu app se rompe en producción.**
+
+### Loading
+
+```jsx
+// ❌ MAL: Spinner genérico sin contexto
+{isLoading && <Spinner />}
+
+// ✅ BIEN: Skeleton que respeta el layout
+{isLoading && (
+  <div className="feed-skeleton">
+    <PostCardSkeleton />  // ← mismo alto que PostCard real
+    <PostCardSkeleton />
+    <PostCardSkeleton />
+  </div>
+)}
+```
+
+**Por qué:** El skeleton evita el "salto" visual cuando llegan los datos. En una entrevista, esto demuestra que piensas en UX, no solo en funcionalidad.
+
+### Error
+
+```jsx
+// ❌ MAL: console.error + pantalla en blanco
+
+// ✅ BIEN: Error con acción de retry
+{isError && (
+  <ErrorState 
+    title="No pudimos cargar el feed"
+    message={error.message}
+    action={<button onClick={() => refetch()}>Reintentar</button>}
+  />
+)}
+```
+
+**Casos de error a cubrir:**
+- Network error (sin internet)
+- 401 (token expirado → redirigir a login)
+- 404 (post eliminado)
+- 500 (error del servidor)
+
+### Empty
+
+```jsx
+// ❌ MAL: Pantalla en blanco (usuario piensa que sigue cargando)
+
+// ✅ BIEN: Empty state con CTA
+{posts?.length === 0 && (
+  <EmptyState
+    icon={<InboxIcon />}
+    title="Aún no hay posts"
+    message="Sigue a alguien para ver su contenido aquí"
+    action={<Link to="/explore">Descubrir personas</Link>}
+  />
+)}
+```
+
+**Diferencia clave:** Empty ≠ Error. Empty es un estado válido. Error es un fallo.
+
+### Success
+
+```jsx
+// ✅ El estado "feliz" que ya conoces
+{posts?.map(post => <PostCard key={post.id} post={post} />)}
+```
+
+---
+
+## 5️⃣ OPERACIONES QUE MODIFICAN CACHÉ
+
+En TanStack Query, cada operación de escritura debe **invalidar o actualizar** el caché. Si no lo haces, la UI muestra datos stale.
+
+| Operación | Qué invalida/actualiza | Por qué |
+|---|---|---|
+| **Like post** | `['posts', postId]` + `['posts']` | El contador y el estado cambian |
+| **Create post** | `['posts']` (lista) | Aparece nuevo post arriba |
+| **Comment** | `['posts', postId, 'comments']` | Nuevo comentario en lista |
+| **Follow user** | `['users', userId]` + `['users', 'me']` | Cambia botón "Seguir" → "Siguiendo" |
+| **Update profile** | `['users', 'me']` + `['posts']` (si cambia avatar) | Nuevo nombre/avatar en todo |
+| **Upload avatar** | `['users', 'me']` | Nueva imagen en header |
+| **Delete post** | `['posts']` + `['users', 'me', 'posts']` | Desaparece del feed |
+
+```javascript
+// Ejemplo: Like con optimistic update
+export function useLikePost() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: likePost,
+    
+    // Optimistic: actualiza UI ANTES de la respuesta
+    onMutate: async (postId) => {
+      await queryClient.cancelQueries({ queryKey: ['posts', postId] });
+      const previous = queryClient.getQueryData(['posts', postId]);
+      
+      queryClient.setQueryData(['posts', postId], (old) => ({
+        ...old,
+        isLiked: !old.isLiked,
+        stats: {
+          ...old.stats,
+          likesCount: old.isLiked 
+            ? old.stats.likesCount - 1 
+            : old.stats.likesCount + 1,
+        },
+      }));
+      
+      return { previous };
+    },
+    
+    // Si falla, rollback
+    onError: (err, postId, context) => {
+      queryClient.setQueryData(['posts', postId], context.previous);
+    },
+    
+    // Siempre invalida al final
+    onSettled: (data, error, postId) => {
+      queryClient.invalidateQueries({ queryKey: ['posts', postId] });
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    },
+  });
+}
+```
+
