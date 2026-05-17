@@ -1,0 +1,67 @@
+Accesibilidad: 
+-aria-label en un botón describe la acción no el estado (like post)
+-aria-pressed en un botón describe el estado (true)
+-aria-busy =  "true" para skeleton
+-role = "list" cuando list-style: none;
+-role = "alert" errores
+-role = "status" empty states
+-display:none sigue en el DOM (Solución, CSS grid + order).
+
+CSS:
+Cada modificador hace una cosa (tamaño, color o layout).
+--color-primary (botones, acciones, brand)
+--color-background (fondos de página)
+--color-surface (fondos de tarjetas, componentes)
+--color-border 
+--color-text 
+--color-status (online,success,warning, error) 
+-*botones con min width y min height 44px (target mínimo en mobile)
+-width: 100% mobile first
+-<select> nativo. div wrapper visible con el diseño encima. Select nativo opacity: 0; position: absolute; inset: 0;
+-align-self: end (arregló el bug del botón del post)
+-padding-bottom: env(safe-area-inset-bottom) Sin esto el navbottom queda tapado por el home indicator en IPHONE moderno.
+
+HTML:
+-EN BEM los elementos deben ser semánticos, no de layout. ("right" estaría mal porque marca posición)
+-<span> texto inline dentro de una frase.
+-nunca pasar la key como prop, no llega al DOM. REACT la consume antes de que llegue al componente.
+-<div> con onClick funciona con mouse pero no con teclados ni con screen readers <button> da foco, enter y space
+-useNavigate es para navegación programática. (tras submit de formulario, etc)
+-width: max-content se adapta al contenido
+-input siempre lleva label e id.
+-field-sizing: area; textarea autoexpandible.
+
+JS:
+-Mapear un objeto: Object.entries(obj).map(([key,value])=> {
+  return `${key}:${value}`; });
+-SCREAMING_SNAKE_CASE: valor fijo en compilación. No depende de nada externo.
+-Promise.reject () en lugar de throw dentro de callback async. Throw dentro de una función asíncrona que devuelve una promesa no siempre es capturado por el catch de ReactQuery.
+-filter(Boolean) elimina cualqueir valor falsy del array resultante (null, undefined, false, 0). 
+-onSuccess => evento / isLoading => estado booleano.
+-?. => operador opcional chaining / ? => operador ternario
+
+REACT:
+-setCount (prev => prev + 1) porque useState es asíncrono, se usa cuando el nuevo estado depende del anterior. React no actualiza el estado automáticamente, lo encola y procesa el rerender en el siguiente ciclo.
+-useRef => guardar un valor que persiste entre renders. (guardas algo y React no se entera cuando cambia, no hace rerender).
+-formularios: id conecta el label con el input usando htmlFor. name define la clave de valor cuando envías el formulario.
+*si puedes describir todos los items con el mismo contrato de datos => mapea. Si algún item necesita comportamiento único => escribirlo explícito.
+
+Arquitectura:
+-Cuando tieneas más de 3 elemntos de un mismo tipo => carpeta.
+-un componente atómico no debe deènder de un hook de sesión. No debe usar ningún hook que traiga datos de la app o lógica global. (no decide que mostrar, sólo controla cómo se muestra)
+-Acoplamiento: El componente depende de algo externo (no debe suceder).
+-/components (solo UI, reciben datos por props)
+-/hooks (lógica reutilizable, side effect)
+-/services (llamadas a API, axios, fetch)
+-/context (estado global)
+-/utils (funciones puras, helpers)
+
+VS Code:
+-TODO: hay que hacerlo, no es urgente
+-FIXME: está roto o es incorrecto, hay que arreglarlo.
+-HACK: Solución temporal que funciona pero no es la correcta.
+Extención Todo tree. 
+ES7+ React snippets para boilerplate, Auto Rename Tag para HTML/JSX, Error Lens para ver errores ESLint inline, y GitLens para blame y history. Formateo y calidad: Prettier con config compartida en el repo, ESLint con eslint-config-react-hooks para reglas de hooks. Build: Vite como bundler y dev server —más rápido que Webpack para mi flujo—. Debugging: React DevTools para inspeccionar componentes y profiler, y Chrome DevTools para performance y a11y audits. También uso Husky + lint-staged para correr Prettier y ESLint en cada commit, así nunca subo código mal formateado. Para APIs, Thunder Client dentro de VS Code o Postman para testing manual.
+
+
+
