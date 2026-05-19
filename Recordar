@@ -1,12 +1,36 @@
 Accesibilidad: 
 -botón con texto visible no necesita aria-label, si sólo tiene icono es obligatorio.
 -<i> ya no se usa para íconos semánticos, mejor <span>
--aria-label en un botón describe la acción no el estado (like post)
--aria-pressed en un botón describe el estado (true)
--aria-busy =  "true" para skeleton
--role = "list" cuando list-style: none;
--role = "alert" errores
--role = "status" empty states
+* `aria-label` en un botón describe la acción, no el estado (`Like post`)
+* `aria-pressed="true"` describe el estado de un botón toggle
+* `aria-busy="true"` para skeletons o contenido cargando
+* `aria-hidden="true"` para iconos o elementos decorativos
+* `aria-expanded="true"` cuando un acordeón o menú está abierto
+* `aria-controls="menu-id"` conecta un botón con el elemento que controla
+* `aria-invalid="true"` marca un input con error
+* `aria-describedby="error-id"` conecta un input con texto de ayuda o error
+* `aria-live="polite"` anuncia cambios sin interrumpir al usuario
+* `aria-live="assertive"` anuncia cambios urgentes inmediatamente
+* `role="alert"` para errores
+* `role="status"` para estados no urgentes o empty states
+* `role="dialog"` para modales
+* `role="navigation"` para navegación principal
+* `role="main"` para contenido principal
+* `role="search"` para buscadores
+* `role="list"` cuando usas `list-style: none`
+* `role="listitem"` para elementos dentro de listas custom
+* `role="button"` cuando un `div` actúa como botón
+* `tabindex="0"` hace un elemento accesible con teclado
+* `tabindex="-1"` permite mover foco manualmente con JavaScript
+* `alt=""` en imágenes decorativas
+* `alt="Descripción"` en imágenes importantes
+* `for=""` + `id=""` conecta labels con inputs
+* usar elementos semánticos (`button`, `nav`, `main`, `header`) antes que ARIA
+* los botones deben funcionar con teclado (`Enter` y `Space`)
+* el foco siempre debe ser visible
+* no usar solo color para mostrar errores
+* los modales deben atrapar el foco
+* el orden del tab debe ser lógico
 -display:none sigue en el DOM (Solución, CSS grid + order).
 
 CSS:
@@ -91,6 +115,28 @@ VS Code:
 -HACK: Solución temporal que funciona pero no es la correcta.
 Extención Todo tree. 
 ES7+ React snippets para boilerplate, Auto Rename Tag para HTML/JSX, Error Lens para ver errores ESLint inline, y GitLens para blame y history. Formateo y calidad: Prettier con config compartida en el repo, ESLint con eslint-config-react-hooks para reglas de hooks. Build: Vite como bundler y dev server —más rápido que Webpack para mi flujo—. Debugging: React DevTools para inspeccionar componentes y profiler, y Chrome DevTools para performance y a11y audits. También uso Husky + lint-staged para correr Prettier y ESLint en cada commit, así nunca subo código mal formateado. Para APIs, Thunder Client dentro de VS Code o Postman para testing manual.
+
+GITHub:
+| Comando                   | Qué hace                        | Ejemplo                                      |
+| ------------------------- | ------------------------------- | -------------------------------------------- |
+| `git init`                | Inicializa un repositorio local | `git init`                                   |
+| `git clone`               | Copia un repositorio remoto     | `git clone https://github.com/user/repo.git` |
+| `git status`              | Muestra cambios actuales        | `git status`                                 |
+| `git add`                 | Añade archivos al staging       | `git add .`                                  |
+| `git commit -m "mensaje"` | Guarda cambios                  | `git commit -m "primer commit"`              |
+| `git push`                | Sube cambios a GitHub           | `git push origin main`                       |
+| `git pull`                | Descarga y mezcla cambios       | `git pull origin main`                       |
+| `git branch`              | Muestra o crea ramas            | `git branch nueva-rama`                      |
+| `git checkout`            | Cambia de rama                  | `git checkout main`                          |
+| `git checkout -b`         | Crea y cambia a nueva rama      | `git checkout -b feature-x`                  |
+| `git merge`               | Une ramas                       | `git merge feature-x`                        |
+| `git log`                 | Muestra historial de commits    | `git log`                                    |
+| `git diff`                | Muestra cambios no confirmados  | `git diff`                                   |
+| `git remote -v`           | Muestra repos remotos           | `git remote -v`                              |
+| `git stash`               | Guarda cambios temporalmente    | `git stash`                                  |
+| `git stash pop`           | Recupera cambios guardados      | `git stash pop`                              |
+
+
 
 
 
