@@ -1,4 +1,6 @@
 Accesibilidad: 
+-botón con texto visible no necesita aria-label, si sólo tiene icono es obligatorio.
+-<i> ya no se usa para íconos semánticos, mejor <span>
 -aria-label en un botón describe la acción no el estado (like post)
 -aria-pressed en un botón describe el estado (true)
 -aria-busy =  "true" para skeleton
@@ -8,7 +10,8 @@ Accesibilidad:
 -display:none sigue en el DOM (Solución, CSS grid + order).
 
 CSS:
-Cada modificador hace una cosa (tamaño, color o layout).
+-CLS: CumulativeLayout Shift: mide cambios inesperados de Layout. Bueno < 0.1, malo > 0.25. font-dispay: swap.
+-Cada modificador hace una cosa (tamaño, color o layout).
 --color-primary (botones, acciones, brand)
 --color-background (fondos de página)
 --color-surface (fondos de tarjetas, componentes)
@@ -24,7 +27,6 @@ Cada modificador hace una cosa (tamaño, color o layout).
 HTML:
 -EN BEM los elementos deben ser semánticos, no de layout. ("right" estaría mal porque marca posición)
 -<span> texto inline dentro de una frase.
--nunca pasar la key como prop, no llega al DOM. REACT la consume antes de que llegue al componente.
 -<div> con onClick funciona con mouse pero no con teclados ni con screen readers <button> da foco, enter y space
 -useNavigate es para navegación programática. (tras submit de formulario, etc)
 -width: max-content se adapta al contenido
@@ -32,29 +34,56 @@ HTML:
 -field-sizing: area; textarea autoexpandible.
 
 JS:
+-DOM: interfaz de programación que representa el documento como objetos.
+-EventLoop: callStack vacío => todas las microtareas => una macrotarea (las promesas siempre ganan al setTimeOut)
 -Mapear un objeto: Object.entries(obj).map(([key,value])=> {
   return `${key}:${value}`; });
 -SCREAMING_SNAKE_CASE: valor fijo en compilación. No depende de nada externo.
 -Promise.reject () en lugar de throw dentro de callback async. Throw dentro de una función asíncrona que devuelve una promesa no siempre es capturado por el catch de ReactQuery.
--filter(Boolean) elimina cualqueir valor falsy del array resultante (null, undefined, false, 0). 
+-filter(Boolean) elimina cualquier valor falsy del array resultante (null, undefined, false, 0). 
 -onSuccess => evento / isLoading => estado booleano.
--?. => operador opcional chaining / ? => operador ternario
+-?. => operador opcional chaining / ? => operador ternario.
+-.this => referencia al objeto que ejecuta la función actual. Su valor se decide cuando se llama a la función. .this siempre es quién llamó a la función, si no hay objeto llamando es window.
+-
 
 REACT:
+React re-renderiza por estado, props y contexto. Cada render ejecuta el compoennte de nuevo. Todo lo creado dentro del componente se vuelve a generar (funciones, objetos, arrays). Las referencias cambian, aunque el contenido sea el mismo. Los objetos se comparan por referencia (dirección en memoria), los primitivos se comparan por valor. useMemo y useCallback permiten controlar la referencia. 
+-Reconciliación: Cuando React compara el VIrtual DOM anterior con el nuevo para decidir que actualizar.
+Algoritmo de diffing: Para comparar el árbol de componentes, compara nodo a nodo y si el tipo de componente cambia destruye y recrea. Si es el mismo tipo actualiza solo lo que cambió. En listas sin Key compara por posición y puede actualizar el incorrecto.
+-{<Component>} lo ejecutas
+-{Component} lo pasas para que otro lo ejecute (es lo que pasas al suspense)
+-const impide reasignar, no impide mutar. const: obj1 = {'nombre: Luis'} no permitido => obj1.nombre = 'Luis'.
+-nunca pasar la key como prop, no llega al DOM. REACT la consume antes de que llegue al componente.
 -setCount (prev => prev + 1) porque useState es asíncrono, se usa cuando el nuevo estado depende del anterior. React no actualiza el estado automáticamente, lo encola y procesa el rerender en el siguiente ciclo.
--useRef => guardar un valor que persiste entre renders. (guardas algo y React no se entera cuando cambia, no hace rerender).
+-useRef => guardar un valor que persiste entre renders. (guardas algo y React no se entera cuando cambia, no hace rerender). Para acceder a un elemento del DOM, enfocar un input, hacer scroll a un elemnto, abrir o cerrar un modal de forma imperativa.
+-useEffect => código que debe ejecutarse después del render. Modifica algo externo, interactúa fuera de la función. Sin array de depndencias se ejecuta en cada render / [] al montar el componente / [valor] al montar el componente y cuando cambia el valor.
+-useRef para obtener el elemento del DOM, intersectionObserver para observar ese elemento, useState para guardar si está visible o no. 
+-React.memo => evita que un componente se vuelva a renderizar si sus props no cambiaron.
+-useMemo => memoiza un valor. use...(fn, deps)
+-useCallback => memoiza una función, atajo de useMemo para funciones. (Cuando pasas funciones a hooks personalizados, cuando usas funciones como dependencias de useEffect, en componentes memoizados)
+-return () => controller.abort() // cleanup: cancela si la Query cambia (TanStack lo hace automático).
 -formularios: id conecta el label con el input usando htmlFor. name define la clave de valor cuando envías el formulario.
 *si puedes describir todos los items con el mismo contrato de datos => mapea. Si algún item necesita comportamiento único => escribirlo explícito.
+-propDrilling es un problema de acoplamiento porque los componentes intermedios dependen de props que no utilizan. 
+-Graceful degradation: evita que un error rompa la app. (loggin de errores, Error-boundaries).
+-loggin de errores: registrar el fallo.
+-Error-boundaries: no captura eventos, código async, errores fuera del render, setTimeOut. Captura errores en el renderizado de sus hijos y permiten mostrar una UI alternativa si romper la app.
+-event.target => elemento exacto dónde ocurrió el click / event.current.target => elemento donde está el listener.
+
 
 Arquitectura:
--Cuando tieneas más de 3 elemntos de un mismo tipo => carpeta.
--un componente atómico no debe deènder de un hook de sesión. No debe usar ningún hook que traiga datos de la app o lógica global. (no decide que mostrar, sólo controla cómo se muestra)
+-Cuando tieneas más de 3 elementos de un mismo tipo => carpeta.
+-Regla de APIsREST: Frontend nunca calcula lo que el backend puede clacular. (Para calcular comentarios tendrías que cargar todos los comentarios primero).
+-Los componentes deben renderizar no transformar datos.
+-un componente atómico no debe depender de un hook de sesión. No debe usar ningún hook que traiga datos de la app o lógica global. (no decide que mostrar, sólo controla cómo se muestra)
 -Acoplamiento: El componente depende de algo externo (no debe suceder).
 -/components (solo UI, reciben datos por props)
 -/hooks (lógica reutilizable, side effect)
 -/services (llamadas a API, axios, fetch)
 -/context (estado global)
 -/utils (funciones puras, helpers)
+-FAB =>Floating Action Button, acción principal de pantalla.
+-Icon Button, acción secundaria, vive dentro de otro componente.
 
 VS Code:
 -TODO: hay que hacerlo, no es urgente
