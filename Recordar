@@ -93,6 +93,7 @@ Algoritmo de diffing: Para comparar el árbol de componentes, compara nodo a nod
 -loggin de errores: registrar el fallo.
 -Error-boundaries: no captura eventos, código async, errores fuera del render, setTimeOut. Captura errores en el renderizado de sus hijos y permiten mostrar una UI alternativa si romper la app.
 -event.target => elemento exacto dónde ocurrió el click / event.current.target => elemento donde está el listener.
+-si llama a otros hooks, es un hook. Los hooks solo pueden llamarse dentro de otros hooks o componentes 
 
 
 Arquitectura:
