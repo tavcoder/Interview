@@ -14,7 +14,7 @@ Accesibilidad:
 * `role="alert"` para errores
 * `role="status"` para estados no urgentes o empty states
 * `role="dialog"` para modales
-* `role="navigation"` para navegación principal
+* `role="navigation"` para navegación principal (para grupos de links de navegación, un link solitario no lo necesita)
 * `role="main"` para contenido principal
 * `role="search"` para buscadores
 * `role="list"` cuando usas `list-style: none`
