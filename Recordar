@@ -94,7 +94,28 @@ Algoritmo de diffing: Para comparar el árbol de componentes, compara nodo a nod
 -Error-boundaries: no captura eventos, código async, errores fuera del render, setTimeOut. Captura errores en el renderizado de sus hijos y permiten mostrar una UI alternativa si romper la app.
 -event.target => elemento exacto dónde ocurrió el click / event.current.target => elemento donde está el listener.
 -si llama a otros hooks, es un hook. Los hooks solo pueden llamarse dentro de otros hooks o componentes 
+-React Query tiene tres callbacks para optimistic updates:
+javascriptuseMutation({
+    mutationFn: followUser,
+    onMutate: async (userId) => {},   // ← antes de la llamada
+    onError: (err, userId, context) => {},  // ← si falla
+    onSettled: () => {},              // ← siempre, éxito o error
+})
+onMutate — aquí haces el update optimista:
 
+Cancelas queries en vuelo para evitar race conditions
+Guardas el estado actual como snapshot
+Actualizas la caché manualmente con el resultado esperado
+Devuelves el snapshot como context
+
+onError — aquí haces el rollback:
+
+Recibes el context que devolviste en onMutate
+Restauras la caché al snapshot guardado
+
+onSettled — aquí sincronizas con el servidor:
+
+Invalidas las queries para que React Query refetch los datos reales
 
 Arquitectura:
 -Cuando tieneas más de 3 elementos de un mismo tipo => carpeta.
