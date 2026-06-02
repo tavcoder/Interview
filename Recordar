@@ -56,6 +56,7 @@ HTML:
 -width: max-content se adapta al contenido
 -input siempre lleva label e id.
 -field-sizing: area; textarea autoexpandible.
+-Un <a> o <Link> dentro de <ul> sin <li> como padre directo es HTML inválido. El <li> siempre es hijo directo del <ul>.
 
 JS:
 -DOM: interfaz de programación que representa el documento como objetos.
