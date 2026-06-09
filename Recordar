@@ -48,7 +48,7 @@ CSS:
 -align-self: end (arregló el bug del botón del post)
 -padding-bottom: env(safe-area-inset-bottom) Sin esto el navbottom queda tapado por el home indicator en IPHONE moderno.
 -Un elemento de texto no necesita flex para centrarse verticalmente dentro de su propio flujo. Basta con line-height o dejar que el flex padre lo alinee.
-
+-Pegar el footer al fondo de la página, necesita que el padre sea min-height: 100dvh y el footer tenga margin-top: auto.
 HTML:
 -EN BEM los elementos deben ser semánticos, no de layout. ("right" estaría mal porque marca posición)
 -<span> texto inline dentro de una frase.
