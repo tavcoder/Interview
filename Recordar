@@ -47,6 +47,7 @@ CSS:
 -<select> nativo. div wrapper visible con el diseño encima. Select nativo opacity: 0; position: absolute; inset: 0;
 -align-self: end (arregló el bug del botón del post)
 -padding-bottom: env(safe-area-inset-bottom) Sin esto el navbottom queda tapado por el home indicator en IPHONE moderno.
+-Un elemento de texto no necesita flex para centrarse verticalmente dentro de su propio flujo. Basta con line-height o dejar que el flex padre lo alinee.
 
 HTML:
 -EN BEM los elementos deben ser semánticos, no de layout. ("right" estaría mal porque marca posición)
