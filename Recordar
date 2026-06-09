@@ -154,6 +154,7 @@ Extención Todo tree.
 ES7+ React snippets para boilerplate, Auto Rename Tag para HTML/JSX, Error Lens para ver errores ESLint inline, y GitLens para blame y history. Formateo y calidad: Prettier con config compartida en el repo, ESLint con eslint-config-react-hooks para reglas de hooks. Build: Vite como bundler y dev server —más rápido que Webpack para mi flujo—. Debugging: React DevTools para inspeccionar componentes y profiler, y Chrome DevTools para performance y a11y audits. También uso Husky + lint-staged para correr Prettier y ESLint en cada commit, así nunca subo código mal formateado. Para APIs, Thunder Client dentro de VS Code o Postman para testing manual.
 
 GITHub:
+-git reset --soft HEAD~1 => ir atrás un commit sino se ha hehco push.
 | Comando                   | Qué hace                        | Ejemplo                                      |
 | ------------------------- | ------------------------------- | -------------------------------------------- |
 | `git init`                | Inicializa un repositorio local | `git init`                                   |
