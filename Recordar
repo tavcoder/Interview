@@ -32,6 +32,11 @@ Accesibilidad:
 * los modales deben atrapar el foco
 * el orden del tab debe ser lógico
 -display:none sigue en el DOM (Solución, CSS grid + order).
+-Conectar el error al input via aria-describedby y marcar el estado con aria-invalid
+aria-invalid={!!errors.password}
+aria-describedby={errors.password ? 'password-error' : undefined}
+(Como el id del <p> coincide con el valor de aria-describedby, el lector de pantalla relaciona ambos elementos.)
+
 
 CSS:
 -CLS: CumulativeLayout Shift: mide cambios inesperados de Layout. Bueno < 0.1, malo > 0.25. font-dispay: swap.
@@ -49,6 +54,13 @@ CSS:
 -padding-bottom: env(safe-area-inset-bottom) Sin esto el navbottom queda tapado por el home indicator en IPHONE moderno.
 -Un elemento de texto no necesita flex para centrarse verticalmente dentro de su propio flujo. Basta con line-height o dejar que el flex padre lo alinee.
 -Pegar el footer al fondo de la página, necesita que el padre sea min-height: 100dvh y el footer tenga margin-top: auto.
+ Cuando el padre usa gap, el espaciado entre hijos ya está gestionado. Añadir margin-top en un hijo crea un espacio doble e inconsistente
+-un <span> o <p> dentro de un contenedor flex ya está alineado por el padre
+-position: relative en el wrapper + position: absolute en el icono es el estándar para inputs con iconos. 
+-flex: 1 en los pseudo-elementos es el truco — cada línea "empuja" hacia afuera desde el texto central.
+-min-height: 100dvh; Por qué 100dvh y no 100vh:
+En móvil, los navegadores (especialmente Chrome/Safari en iOS) tienen una barra de navegación que aparece y desaparece al hacer scroll. 100vh no la tiene en cuenta y crea ese scroll fantasma de unos pocos píxeles. dvh (dynamic viewport height) se ajusta al viewport real visible. Soporte actual: todos los navegadores modernos desde 2023.
+
 HTML:
 -EN BEM los elementos deben ser semánticos, no de layout. ("right" estaría mal porque marca posición)
 -<span> texto inline dentro de una frase.
@@ -58,6 +70,7 @@ HTML:
 -input siempre lleva label e id.
 -field-sizing: area; textarea autoexpandible.
 -Un <a> o <Link> dentro de <ul> sin <li> como padre directo es HTML inválido. El <li> siempre es hijo directo del <ul>.
+-si navega a una ruta, usa <Link>; si abre un modal, usa <button>.
 
 JS:
 -DOM: interfaz de programación que representa el documento como objetos.
