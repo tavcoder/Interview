@@ -71,7 +71,9 @@ HTML:
 -input siempre lleva label e id.
 -field-sizing: area; textarea autoexpandible.
 -Un <a> o <Link> dentro de <ul> sin <li> como padre directo es HTML inválido. El <li> siempre es hijo directo del <ul>.
+-fieldset + legend es la forma correcta para grupos de radios.
 -si navega a una ruta, usa <Link>; si abre un modal, usa <button>.
+
 
 JS:
 -DOM: interfaz de programación que representa el documento como objetos.
