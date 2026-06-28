@@ -2,6 +2,7 @@ https://www.greatfrontend.com/interviews/roadmap
 Accesibilidad: 
 -botón con texto visible no necesita aria-label, si sólo tiene icono es obligatorio.
 -<i> ya no se usa para íconos semánticos, mejor <span>
+*construyendo una opción seleccionable dentro de un grupo de múltiples opciones. Si fuera un <input> nativo, sería un checkbox. Cuando construyes la versión custom con un <button>, el atributo ARIA que replica esa semántica es aria-checked, y el rol que necesita el elemento es role="checkbox".
 * `aria-label` en un botón describe la acción, no el estado (`Like post`)
 * `aria-pressed="true"` describe el estado de un botón toggle
 * `aria-busy="true"` para skeletons o contenido cargando
