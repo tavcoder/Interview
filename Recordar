@@ -62,6 +62,7 @@ CSS:
 -flex: 1 en los pseudo-elementos es el truco — cada línea "empuja" hacia afuera desde el texto central.
 -min-height: 100dvh; Por qué 100dvh y no 100vh:
 En móvil, los navegadores (especialmente Chrome/Safari en iOS) tienen una barra de navegación que aparece y desaparece al hacer scroll. 100vh no la tiene en cuenta y crea ese scroll fantasma de unos pocos píxeles. dvh (dynamic viewport height) se ajusta al viewport real visible. Soporte actual: todos los navegadores modernos desde 2023.
+-La separación entre elementos es responsabilidad del contenedor, no de los hijos. gap en el flex container es la herramienta correcta
 
 HTML:
 -EN BEM los elementos deben ser semánticos, no de layout. ("right" estaría mal porque marca posición)
@@ -87,7 +88,7 @@ JS:
 -onSuccess => evento / isLoading => estado booleano.
 -?. => operador opcional chaining / ? => operador ternario.
 -.this => referencia al objeto que ejecuta la función actual. Su valor se decide cuando se llama a la función. .this siempre es quién llamó a la función, si no hay objeto llamando es window.
--
+-new Promise((resolve, reject) => ...) es el patrón para convertir cualquier callback asíncrono en Promise
 
 REACT:
 React re-renderiza por estado, props y contexto. Cada render ejecuta el compoennte de nuevo. Todo lo creado dentro del componente se vuelve a generar (funciones, objetos, arrays). Las referencias cambian, aunque el contenido sea el mismo. Los objetos se comparan por referencia (dirección en memoria), los primitivos se comparan por valor. useMemo y useCallback permiten controlar la referencia. 
@@ -135,6 +136,14 @@ Restauras la caché al snapshot guardado
 onSettled — aquí sincronizas con el servidor:
 
 Invalidas las queries para que React Query refetch los datos reales
+*useMutation solo pasa un argumento a mutationFn. La solución es agrupar los dos valores en un objeto:
+jsmutationFn: ({ id, file }) => uploadAvatar(id, file),
+Y cuando llamas a mutate:
+jsmutate({ id: userId, file })
+Un objeto, un argumento. Es el patrón estándar cuando necesitas pasar múltiples valores a una mutation.
+variables en onSuccess es cómo accedes a los argumentos originales de la mutation.
+
+*error de React Query es un objeto Error, no un string. En pantalla verías [object Object].{isError && <span>{error.message}</span>}
 
 Arquitectura:
 -Cuando tieneas más de 3 elementos de un mismo tipo => carpeta.
