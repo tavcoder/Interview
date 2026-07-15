@@ -1,1 +1,19 @@
-Lo que hace especial al estado es que el framework de JS actualiza automáticamente la interfaz de usuario cuando cambia. 
+En React, el renderizado es básicamente volver a ejecutar la función del componente para calcular qué debe mostrarse, y luego React compara el resultado con el anterior para aplicar solo los cambios necesarios en el DOM. React vuelve a renderizar cuando cambia el estado de un componente o de uno de sus ancestros, cuando cambian las props que recibe, o cuando cambia el valor de un contexto que consume. Porque son las fuentes de verdad que determinan lo que la UI debe mostrar en ese momento.
+State: si llamas a setState o a un setter de useState, React programa un nuevo render porque el componente necesita reflejar el nuevo valor.
+
+Props: si el padre renderiza de nuevo y le pasa props distintas al hijo, ese hijo también se vuelve a renderizar para recibir las nuevas entradas.
+
+Context: si un Provider cambia su valor, todos los consumidores de ese contexto que dependan de ese valor se re-renderizan
+
+El renderizado calcula qué UI debería verse y la reconciliación decide qué cambios mínimos aplicar al árbol y al DOM.  El diffing es la parte del proceso de reconciliación que compara el árbol anterior con el nuevo para calcular qué cambió. Cuando cambian state, props o context, React vuelve a renderizar el componente y genera una nueva estructura de elementos.
+Luego el algoritmo de diffing compara esa nueva estructura con la anterior y determina el conjunto mínimo de cambios que hace falta aplicar.
+En otras palabras: el render produce “la nueva versión”, y el diffing decide “qué parches hacer”.
+Render: React calcula la nueva UI.
+Diffing: React compara nueva vs. vieja UI.
+Reconciliación: React aplica las actualizaciones mínimas al árbol y al DOM.
+*React actualiza el contenido y conserva el elemento DOM. (por ejemplo si cambia el texto de un botón).
+Los primitivos se comparan por valor.
+Los objetos y arrays se comparan por referencia.
+Si en React mantienes la misma referencia y solo mutas el contenido, la comparación superficial puede no ver diferencia.Porque en React muchas decisiones de actualización se basan en comparaciones superficiales por referencia, y los objetos/arrays solo se consideran distintos si su referencia cambia.las reglas de Hooks son una consecuencia de cómo React organiza el estado durante el render y la reconciliación; si cambias el orden o los llamas de forma condicional, React no puede emparejar correctamente cada Hook con su estado previo. React guarda los Hooks de un componente en un orden fijo durante el render.
+Cuando el componente se vuelve a ejecutar, React espera encontrar exactamente el mismo orden de llamadas para poder reutilizar el estado correcto.
+Si metes un Hook dentro de un if, un bucle o una función anidada, ese orden cambia entre renders y React ya no sabe qué useState, useEffect o useMemo corresponde a cada posición.
