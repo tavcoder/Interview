@@ -15,7 +15,7 @@ Accesibilidad:
 * `aria-live="assertive"` anuncia cambios urgentes inmediatamente
 * `role="alert"` para errores
 * `role="status"` para estados no urgentes o empty states
-* `role="dialog"` para modales
+* role="dialog" + aria-modal="true" + aria-labelledby  para modales
 * `role="navigation"` para navegación principal (para grupos de links de navegación, un link solitario no lo necesita)
 * `role="main"` para contenido principal
 * `role="search"` para buscadores
