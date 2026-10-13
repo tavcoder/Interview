@@ -91,6 +91,7 @@ JS:
 -new Promise((resolve, reject) => ...) es el patrón para convertir cualquier callback asíncrono en Promise
 
 REACT:
+-¿Cómo configuras React Query? staleTime según qué tan vivo es el dato, retry que no insiste en los 4xx, y networkMode distinto en mock y producción.
 -las props opcionales se omiten cuando no se usan, y el contrato vive en la definición del componente, no en cada llamada.
 React re-renderiza por estado, props y contexto. Cada render ejecuta el compoennte de nuevo. Todo lo creado dentro del componente se vuelve a generar (funciones, objetos, arrays). Las referencias cambian, aunque el contenido sea el mismo. Los objetos se comparan por referencia (dirección en memoria), los primitivos se comparan por valor. useMemo y useCallback permiten controlar la referencia. 
 -Reconciliación: Cuando React compara el VIrtual DOM anterior con el nuevo para decidir que actualizar.
