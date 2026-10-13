@@ -41,6 +41,11 @@ aria-describedby={errors.password ? 'password-error' : undefined}
 
 
 CSS:
+-“¿cómo optimizas imágenes en una lista infinita?” sería así:
+Problema: la lista descarga todo y las imágenes empujan el contenido.
+Restricción: el feed pagina sin fin y las dimensiones no vienen del backend.
+Decisión: loading="lazy", aspect-ratio, y formato y ancho servidos por la CDN.
+Beneficio: menos bytes, sin layout shift, y la primera pantalla no se retrasa.
 -CLS: CumulativeLayout Shift: mide cambios inesperados de Layout. Bueno < 0.1, malo > 0.25. font-dispay: swap.
 -Cada modificador hace una cosa (tamaño, color o layout).
 --color-primary (botones, acciones, brand)
