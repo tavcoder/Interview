@@ -42,6 +42,7 @@ aria-describedby={errors.password ? 'password-error' : undefined}
 
 
 CSS:
+-aspect-ratio: 1 recorta todas las fotos a cuadrado. Con object-fit: cover, una foto apaisada pierde los lados y una vertical pierde arriba y abajo. Aspect-ratio: 4 / 3 con límite de altura es más neutro.
 -“¿cómo optimizas imágenes en una lista infinita?” sería así:
 Problema: la lista descarga todo y las imágenes empujan el contenido.
 Restricción: el feed pagina sin fin y las dimensiones no vienen del backend.
