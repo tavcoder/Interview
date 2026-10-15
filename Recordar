@@ -144,7 +144,7 @@ Recibes el context que devolviste en onMutate
 Restauras la caché al snapshot guardado
 
 onSettled — aquí sincronizas con el servidor:
-
+Paginación por offset más borrado: la cache y el servidor se desincronizan y se pierde un elemento. Lo resolví reconciliando tras la mutación, y sé que la solución de fondo es paginar por cursor.
 Invalidas las queries para que React Query refetch los datos reales
 *useMutation solo pasa un argumento a mutationFn. La solución es agrupar los dos valores en un objeto:
 jsmutationFn: ({ id, file }) => uploadAvatar(id, file),
