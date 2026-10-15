@@ -1,5 +1,6 @@
 https://www.greatfrontend.com/interviews/roadmap
 Accesibilidad: 
+-¿Cuándo usas disabled y cuándo aria-disabled? Disabled saca el control del orden de tabulación, y es lo correcto para algo realmente inerte. aria-disabled lo mantiene enfocable, y solo lo uso cuando el usuario necesita descubrir por qué está bloqueado, porque cada parada extra de Tab es un coste para quien navega con teclado. Con tu PostStats tienes el ejemplo real de cuándo no compensa.
 -¿Cómo se calcula el nombre accesible de un botón? si hay aria-label gana al contenido, por eso debe contener el texto visible; si no, se concatena el texto de los hijos, ignorando lo que esté en aria-hidden.
 -botón con texto visible no necesita aria-label, si sólo tiene icono es obligatorio.
 -<i> ya no se usa para íconos semánticos, mejor <span>
